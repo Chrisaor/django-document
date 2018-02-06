@@ -14,6 +14,9 @@ class TwitterUser(models.Model):
         related_name='+',
     )
 
+    class Meta:
+        verbose_name_plural = 'Symmetrical_intermediate - TwitterUser'
+
     def __str__(self):
         return self.name
 
@@ -118,3 +121,4 @@ class Relation(models.Model):
             # 두 항목의 값이 모두 같은 또 다른 데이터가 존재할 수 없음
             ('from_user', 'to_user')
         )
+        verbose_name_plural = 'Symmetrical_intermediate - Relation'
