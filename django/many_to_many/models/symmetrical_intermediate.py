@@ -26,6 +26,38 @@ class TwitterUser(models.Model):
         following_users = TwitterUser.objects.filter(pk__in=following_pk_list)
         return following_users
 
+    @property
+    def followers(self):
+        pk_list = self.relations_by_to_user.filter(
+            type=Relation.RELATION_TYPE_FOLLOWING).values_list('from_user', flat=True)
+        return TwitterUser.objects.filter(pk__in=pk_list)
+
+    @property
+    def block_users(self):
+        # 내가 블락하고 있는 TwitterUser목록을 가져옴
+
+        pk_list = self.relations_by_from_user.filter(
+            type=Relation.RELATION_TYPE_BLOCK).values_list('to_user', flat=True)
+
+        return TwitterUser.objects.filter(pk__in=pk_list)
+
+    @property
+    def is_followee(self, to_user):
+        '''
+        내가 to_user를 follow하고 있는지 여부를 True/False로 반환
+        :param to_user:
+        :return:
+        '''
+        return self.following.filter(pk=to_user.pk).exists()
+
+    def is_follower(self, from_user):
+        '''
+        from_user가 나를 follow하 있는지 여부를 True/False로 반환
+        :param to_user:
+        :return:
+        '''
+        return self.following.filter(pk=from_user.pk).exists()
+
     def follow(self, to_user):
         '''
         to_user에 주어진 TwitterUser를 follow함
@@ -52,14 +84,6 @@ class TwitterUser(models.Model):
 
 
 
-    # @property
-    # def block_users(self):
-    #     # 내가 블락하고 있는 TwitterUser목록을 가져옴
-    #
-    #     pk_list = self.relations_by_from_user.filter(
-    #         type=Relation.RELATION_TYPE_BLOCK).values_list('to_user', flat=True)
-    #
-    #     return TwitterUser.objects.filter(pk__in=pk_list)
 
 
 
