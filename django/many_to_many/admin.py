@@ -7,7 +7,8 @@ from .models import (
     # intermediate
     PostLike, Post, User,
     # self
-    FacebookUser
+    FacebookUser,
+    TwitterUser, Relation
 )
 
 
@@ -17,3 +18,5 @@ admin.site.register(Post)
 admin.site.register(User)
 admin.site.register(PostLike)
 admin.site.register(FacebookUser)
+admin.site.register(TwitterUser)
+admin.site.register(Relation)
