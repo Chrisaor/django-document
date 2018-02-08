@@ -5,7 +5,7 @@ class Place(models.Model):
     address = models.CharField(max_length=80)
 
     def __str__(self):
-        return "%s the place" % self.name
+        return f'{self.name} the place'
 
 class Restaurant(models.Model):
     place = models.OneToOneField(
@@ -17,11 +17,11 @@ class Restaurant(models.Model):
     serves_pizza = models.BooleanField(default=False)
 
     def __str__(self):
-        return "%s the restaurant" % self.place.name
+        return f'{self.place.name}s the restaurant'
 
 class Waiter(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return "%s the waiter at %s" % (self.name, self.restaurant)
+        return f'{self.name}s the waiter at {self.restaurant}'
