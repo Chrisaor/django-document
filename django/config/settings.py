@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'inheritance.rel',
     'inheritance.proxy',
     'inheritance.custom_manager',
+    'inheritance.proxy_manager',
     'django_extensions',
 
     'django.contrib.admin',
